@@ -664,7 +664,7 @@ class DeleteKrnevaFoot(View):
         krnevafootdata = Knivu_foot.objects.get(id=id)
         krnevafootdata.delete()
         return redirect("kneva-insert")
-
+@login_required(login_url="login")
 def zakazOlish(request):
     kabinadata = office.objects.all()
     context = {
@@ -686,7 +686,7 @@ def zakazOlish(request):
     }
     return render(request,"zakaz-olish.html",context)
 
-
+@login_required(login_url="login")
 def JamiZakaz(request):
     if request.method == "POST":
         payment_method = request.POST.get("money")
@@ -806,6 +806,7 @@ def JamiZakaz(request):
 
     return render(request,"zakaz-olish.html",context)
 
+@login_required(login_url="login")
 def ZakazTable(request):
     filter_by = request.GET.get('filter_by', 'all')
 
