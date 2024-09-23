@@ -1,0 +1,12 @@
+{% extends 'operator.html' %}
+{% load static %}
+{% block profile %}
+    <div class="container">
+        <h2>Обновить профиль</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Обновлять</button>
+        </form>
+    </div>
+{% endblock profile %}

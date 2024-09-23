@@ -1,0 +1,112 @@
+{% extends 'operator.html' %}
+{% load static %}
+{% block table_zakaz %}
+    <section class="container">
+            <div class="row justify-content-around text-center text-white mt-5">
+                <div class="col-sm-8">
+                    <h3>Отчет о приеме заказа</h3>
+                </div>
+            </div>
+
+<!--            Filter start-->
+        <!-- Filter buttons -->
+            <div class="row justify-content-around text-center text-white mt-5">
+                <div class="col-sm-8">
+                    <form method="get" action="{% url 'filter' %}" class="mb-3">
+                        <div class="input-group input-group-sm"> <!-- Added input-group class -->
+                            <label for="filter" class="input-group-text">Фильтровать по:</label>
+                            <select name="filter_by" id="filter" onchange="this.form.submit()" class="form-select form-select-sm">
+                                <option value="all" {% if selected_filter == "all" %}selected{% endif %}>Все</option>
+                                <option value="day" {% if selected_filter == "day" %}selected{% endif %}>Сегодня</option>
+                                <option value="week" {% if selected_filter == "week" %}selected{% endif %}>Этой неделе</option>
+                                <option value="month" {% if selected_filter == "month" %}selected{% endif %}>Этом месяце</option>
+                            </select>
+                            <noscript><input type="submit" value="Apply Filter"></noscript>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+<!--        Filter end-->
+            <div class="row justify-content-around mt-4 text-center">
+                <div class="col-sm-12">
+                    <table class="table table-hover">
+                       <thead>
+                            <tr>
+                              <th scope="col">№</th>
+                              <th scope="col">Имя</th>
+                              <th scope="col">Деньги</th>
+                              <th scope="col">Штук количество</th>
+                                <th scope="col">Время получения</th>
+                                <th scope="col">оплата</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          {% for item in page_obj %}
+                            <tr>
+                              <th scope="row">{{forloop.counter}}</th>
+                              <td>{{item.name}}</td>
+                              <td>{{item.price}}</td>
+                              <td>{{item.piece}}</td>
+                                <td>{{item.time_of_year}}</td>
+                                <td>{{ item.get_payment_method_display }}</td>
+
+                            </tr>
+                          {% endfor %}
+                            </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2"><strong>общая сумма</strong></td>
+                                <td>{{ total_price }} сўм</td>
+                                <td>{{ total_piece }} штук</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+<!--                        Pasitions start-->
+                        <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center">
+                                    {% if page_obj.has_previous %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page=1">Первый</a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Предыдущий</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#" tabindex="-1">Первый</a>
+                                        </li>
+                                    {% endif %}
+
+                                    {% for page_num in page_obj.paginator.page_range %}
+                                        {% if page_obj.number == page_num %}
+                                            <li class="page-item active">
+                                                <a class="page-link" href="#">{{ page_num }}</a>
+                                            </li>
+                                        {% else %}
+                                            <li class="page-item">
+                                                <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% if page_obj.has_next %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Следующий</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#" tabindex="-1">Следующий</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+
+<!--                        Pasitions end-->
+                </div>
+            </div>
+
+        </section>
+{% endblock table_zakaz %}

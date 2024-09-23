@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block cold_drinks %}
+    <section class="container">
+            <div class="row justify-content-around text-center text-white mt-5">
+                <div class="col-sm-8">
+                    <h3>Введите информацию о холодные напитка</h3>
+                </div>
+            </div>
+            <div class="row justify-content-around mt-3">
+                <div class="col-sm-12">
+<!--                    <a href="#" class="btn btn-primary float-end">Add</a>-->
+         <!-- Modal start -->
+<button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#exampleModal">
+   Добавить информацию
+</button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Заполните раздел ввода данных</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ colddriksform.as_p }}
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+              <button type="submit" class="btn btn-primary">Сохранять</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal end -->
+
+                </div>
+            </div>
+
+            <div class="row justify-content-around mt-4 text-center">
+                <div class="col-sm-12">
+                    <table class="table table-hover">
+                       <thead>
+                            <tr>
+                              <th scope="col">№</th>
+                              <th scope="col">Имя</th>
+                              <th scope="col">load</th>
+                              <th scope="col">Цена</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          {% for cold in colddrinksdata %}
+                            <tr>
+                              <th scope="row">{{forloop.counter}}</th>
+                              <td>{{cold.name}}</td>
+                              <td>{{cold.lang}}</td>
+                              <td>{{cold.price}} сўм</td>
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <form action="{% url 'cold-delete' %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" class="btn btn-danger btn-sm" name="id" value={{cold.id}}>
+                                                    <input type="submit" class="btn btn-danger btn-sm" value="Удалить">
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <a href="{% url 'cold-update' cold.id %}" class="btn btn-info btn-sm">Изменять</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </td>
+                            </tr>
+                          {% endfor %}
+                            </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3"><strong>общая сумма</strong></td>
+                                <td>{{ total_price }} сўм</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+{% endblock cold_drinks %}

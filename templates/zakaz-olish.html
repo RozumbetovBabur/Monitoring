@@ -1,0 +1,219 @@
+{% extends 'operator.html' %}
+{% load static %}
+{% block zakaz_olish %}
+<form action="{% url 'zalaz' %}" method="POST">
+    {% csrf_token %}
+        <section class="container">
+                <div class="row justify-content-around text-center mt-3">
+                    <div class="col-sm-8">
+                        <h3>Место получения заказа</h3>
+                    </div>
+                </div>
+                <div class="row justify-content-around text-center text-white mt-5">
+                    <div class="col-sm-8">
+                            <div class="input-group input-group-sm"> <!-- Added input-group class -->
+                                <label class="input-group-text">Выберите тип оплаты:</label>
+                                <select name="money" id="money" class="form-select" aria-label="Default select example">
+                                    <option value="" selected>Пустой</option>
+                                    <option value="1">Наличные</option>
+                                    <option value="2">Пластик</option>
+                                </select>
+                                <noscript><input type="submit" value="Apply Filter"></noscript>
+                            </div>
+                    </div>
+                </div>
+                <div class="row justify-content-around mt-3">
+                    <div class="col-sm-12">
+                                    <!-- Birinshi qa'tor Start -->
+                            <div class="container-fluid pt-4 px-4">
+                                <div class="row g-4">
+                                    <div class="col-sm-12 col-md-6 col-xl-4">
+                                        <div class="h-100 bg-light rounded p-4">
+                                            <h6 class="text-center">Выберите тип кабина</h6>
+                                            <select class="form-select" aria-label="Default select example" id="kabina" name="kabina">
+                                              <option value="" selected>Пустой</option>
+                                                {% for i in kabinadata %}
+                                              <option value="{{i.id}}">{{i.kobina}}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <hr>
+                                            <h6 class="text-center">Выберите тип cтоль</h6>
+                                            <select class="form-select" aria-label="Default select example" id="stol" name="stol">
+                                              <option value="" selected>Пустой</option>
+                                                {% for stoli in kabinadata %}
+                                              <option value="{{stoli.id}}">{{stoli.stol}}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <hr>
+                                            <h6 class="text-center">Выберите тип</h6>
+                                            <select class="form-select" aria-label="Default select example" id="tip" name="tip">
+                                              <option value="" selected>Пустой</option>
+                                                {% for y in kabinadata %}
+                                              <option value="{{y.id}}">{{y.turi}} - {{forloop.counter}}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-xl-4">
+                                        <div class="h-100 bg-light rounded p-4">
+                                            <h6 class="text-center">Выберите тип супа</h6>
+                                            <select class="form-select" aria-label="Default select example" id="soups" name="soups">
+                                                <option value="" selected>Пустой</option>
+                                                {% for item in soups %}
+                                                    <option value="{{ item.id }}">{{ item.name }} - {{ item.price }} сўм</option>
+                                                {% endfor %}
+                                            </select>
+                                            <hr>
+                                            <h6 class="text-center">Выберите тип салате</h6>
+                                            <select class="form-select" aria-label="Default select example" id="salads" name="salads">
+                                                <option value="" selected>Пустой</option>
+                                                {% for item in salads %}
+                                              <option value="{{ item.id }}">{{ item.name }} - {{ item.price }} сўм</option>
+                                                {% endfor %}
+                                            </select>
+                                            <hr>
+                                            <h6 class="text-center">Выберите вид холодной закуски</h6>
+                                            <select class="form-select" aria-label="Default select example" id="dishes" name="dishes">
+                                                <option value="" selected>Пустой</option>
+                                                {% for item in dishes %}
+                                              <option value="{{ item.id }}">{{ item.name }} - {{ item.price }} сўм</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-xl-4">
+                                        <div class="h-100 bg-light rounded p-4">
+                                            <h6 class="text-center">Выберите тип пиццы</h6>
+                                            <select class="form-select" aria-label="Default select example" id="pizzas" name="pizzas">
+                                                <option value="" selected>Пустой</option>
+                                                {% for item in pizzas %}
+                                              <option value="{{ item.id }}">{{ item.name }} - {{ item.price }} сўм</option>
+                                                {% endfor %}
+                                            </select>
+                                            <hr>
+                                            <h6 class="text-center">Выберите сорт хлеба</h6>
+                                            <select class="form-select" aria-label="Default select example" id="breads" name="breads">
+                                                <option value="" selected>Пустой</option>
+                                                {% for item in breadbazas %}
+                                              <option value="{{ item.id }}">{{ item.name }} - {{ item.price }} сўм</option>
+                                                 {% endfor %}
+                                            </select>
+                                            <hr>
+                                            <h6 class="text-center">Выберите тип Винечки</h6>
+                                            <select class="form-select" aria-label="Default select example" id="vynechkas" name="vynechkas">
+                                                <option value="" selected>Пустой</option>
+                                                {% for item in vynechkas %}
+                                              <option value="{{ item.id }}">{{ item.name }} - {{ item.price }} сўм</option>
+                                                {% endfor %}
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Birinshi qa'tor End -->
+
+                                                        <!-- Ekinchi qa'tor Start -->
+                            <div class="container-fluid pt-4 px-4">
+                                <div class="row g-4">
+                                    <div class="col-sm-12 col-md-6 col-xl-4">
+                                        <div class="h-100 bg-light rounded p-4">
+                                            <h6 class="text-center">Выберите тип гриль</h6>
+                                            <select class="form-select" aria-label="Default select example" id="girils" name="girils">
+                                                <option value="" selected>Пустой</option>
+                                                {% for item in girils %}
+                                              <option value="{{ item.id }}">{{ item.name }} - {{ item.price }} сўм</option>
+                                                {% endfor %}
+                                            </select>
+                                            <hr>
+                                            <h6 class="text-center">выберите тип, который можно приготовить дома</h6>
+                                            <select class="form-select" aria-label="Default select example" id="homes" name="homes">
+                                                <option value="" selected>Пустой</option>
+                                                {% for item in homes %}
+                                              <option value="{{ item.id }}">{{ item.name }} - {{ item.price }} сўм</option>
+                                                {% endfor %}
+                                            </select>
+                                            <hr>
+                                            <h6 class="text-center">Выберите тип Чайная Карна</h6>
+                                            <select class="form-select" aria-label="Default select example" id="tea_karnas" name="tea_karnas">
+                                                <option value="" selected>Пустой</option>
+                                                {% for item in tea_karnas %}
+                                              <option value="{{ item.id }}">{{ item.name }} - {{ item.price }} сўм</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-xl-4">
+                                        <div class="h-100 bg-light rounded p-4">
+                                            <h6 class="text-center">Выберите тип Холодные напитка</h6>
+                                            <select class="form-select" aria-label="Default select example" id="cold_drinks" name="cold_drinks">
+                                                <option value="" selected>Пустой</option>
+                                                {% for item in cold_drinks %}
+                                              <option value="{{ item.id }}">{{ item.name }} - {{ item.price }} сўм</option>
+                                                {% endfor %}
+                                            </select>
+                                            <hr>
+                                            <h6 class="text-center">Выберите тип водки</h6>
+                                            <select class="form-select" aria-label="Default select example" id="vodka_drinks" name="vodka_drinks">
+                                                <option value="" selected>Пустой</option>
+                                                {% for item in vodka_drinks %}
+                                              <option value="{{ item.id }}">{{ item.name }} - {{ item.price }} сўм</option>
+                                                {% endfor %}
+                                            </select>
+                                            <hr>
+                                            <h6 class="text-center">Выберите тип пива</h6>
+                                            <select class="form-select" aria-label="Default select example" id="beer_drinks" name="beer_drinks">
+                                                <option value="" selected>Пустой</option>
+                                                  {% for item in beer_drinks %}
+                                              <option value="{{ item.id }}">{{ item.name }} - {{ item.price }} сўм</option>
+                                                    {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-6 col-xl-4">
+                                        <div class="h-100 bg-light rounded p-4">
+                                            <h6 class="text-center">Выберите тип ножа</h6>
+                                            <select class="form-select" aria-label="Default select example" id="knivu" name="knivu">
+                                              <option value="" selected>Пустой</option>
+                                                 {% for item in knivu %}
+                                              <option value="{{ item.id }}">{{ item.name }} - {{ item.price }} сўм</option>
+                                                    {% endfor %}
+                                            </select>
+                                            <hr>
+    <!--                                        <h6 class="text-center">Выберите сорт хлеба</h6>-->
+    <!--                                        <select class="form-select" aria-label="Default select example">-->
+    <!--                                          <option selected>Выберите сорт хлеба</option>-->
+    <!--                                          <option value="1">One</option>-->
+    <!--                                          <option value="2">Two</option>-->
+    <!--                                          <option value="3">Three</option>-->
+    <!--                                        </select>-->
+    <!--                                        <hr>-->
+    <!--                                        <h6 class="text-center">Вынечка турини танланг</h6>-->
+    <!--                                        <select class="form-select" aria-label="Default select example">-->
+    <!--                                          <option selected>Вынечка турини танланг</option>-->
+    <!--                                          <option value="1">One</option>-->
+    <!--                                          <option value="2">Two</option>-->
+    <!--                                          <option value="3">Three</option>-->
+    <!--                                        </select>-->
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary mt-3 float-end">Прием заказа</button>
+                            </div>
+
+                            <!-- Ekinchi qa'tor End -->
+                    </div>
+                </div>
+            </section>
+</form>
+
+<h3>Я получил заказ</h3>
+<ul>
+    {% for item in items %}
+        <li>{{ item.name }} - {{ item.price }} сўм - Оплата: {{ item.payment_method_display }}</li>
+    {% endfor %}
+</ul>
+<h4>Общая сумма: {{ total_price }} сўм</h4>
+
+{% endblock zakaz_olish %}
