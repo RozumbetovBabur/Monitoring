@@ -172,83 +172,86 @@
                 </div>
             </nav>
             <!-- Navbar End -->
+
             <div class="container-fluid pt-4 px-4">
-                <!-- Sale & Revenue Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-light rounded p-4">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <i class="fa fa-chart-line fa-3x text-primary"></i>
-                                </div>
-                                <div class="col-sm-8">
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <p>Общая сумма:</p>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <h6>{{ overall_total_price }} сўм</h6>
+                {% if is_main_page %}
+                            <!-- Sale & Revenue Start -->
+                                    <div class="row g-4">
+                                        <div class="col-sm-12 col-xl-6">
+                                            <div class="bg-light rounded p-4">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <i class="fa fa-chart-line fa-3x text-primary"></i>
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <p>Общая сумма:</p>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <h6>{{ overall_total_price }} сўм</h6>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <p>Итого наличные:</p>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <h6>{{ overall_cash_total }} сўм</h6>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-6">
+                                                                    <p>Итого пластик:</p>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <h6>{{ overall_card_total }} сўм</h6>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <p>Итого наличные:</p>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <h6>{{ overall_cash_total }} сўм</h6>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <p>Итого пластик:</p>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <h6>{{ overall_card_total }} сўм</h6>
+                                        <div class="col-sm-12 col-xl-6">
+                                            <div class="bg-light rounded p-4">
+                                                <div class="row">
+                                                    <div class="col-sm-2">
+                                                        <i class="fa fa-chart-line fa-3x text-primary"></i>
+                                                    </div>
+                                                    <div class="col-sm-10">
+                                                            <div class="row">
+                                                                <div class="col-sm-8">
+                                                                    <p>Сегодняшний итог:</p>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <h6>{{ today_total_price }} сўм</h6>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-8">
+                                                                    <p>Сегодняшний «Наличных»:</p>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <h6>{{ today_cash_total }} сўм</h6>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-sm-8">
+                                                                    <p>Сегодняшний «Пластик»:</p>
+                                                                </div>
+                                                                <div class="col-sm-4">
+                                                                    <h6>{{ today_card_total }} сўм</h6>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-light rounded p-4">
-                            <div class="row">
-                                <div class="col-sm-2">
-                                    <i class="fa fa-chart-line fa-3x text-primary"></i>
-                                </div>
-                                <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-sm-8">
-                                                <p>Сегодняшний итог:</p>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <h6>{{ today_total_price }} сўм</h6>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-8">
-                                                <p>Сегодняшний «Наличных»:</p>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <h6>{{ today_cash_total }} сўм</h6>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-8">
-                                                <p>Сегодняшний «Пластик»:</p>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <h6>{{ today_card_total }} сўм</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Sale & Revenue End -->
+                                <!-- Sale & Revenue End -->
+                {% endif %}
+
+
                 {% block grafika %}
                 {% endblock grafika %}
 

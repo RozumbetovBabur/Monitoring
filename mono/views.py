@@ -60,7 +60,7 @@ def Home_page(request):
     # Calculate overall total for card ('Пластик')
     overall_card_total = OrderBaza.objects.filter(payment_method='2').aggregate(total_price=Sum('price'))[
                              'total_price'] or 0
-
+    is_main_page = request.path == '/home/'
     context = {
         "today_total_price": today_total_price,
         "overall_total_price": overall_total_price,
@@ -68,12 +68,49 @@ def Home_page(request):
         "today_card_total": today_card_total,
         "overall_cash_total": overall_cash_total,
         "overall_card_total": overall_card_total,
+        'is_main_page': is_main_page,
     }
     return render(request,"home.html",context)
 
 @login_required(login_url="login")
 def operator(request):
-    return render(request,"operator.html")
+    today = timezone.now().date()  # Get the current date
+
+    # Filter records for today and calculate today's total price
+    today_grafikadata = OrderBaza.objects.filter(time_of_year__date=today)
+    today_total_price = today_grafikadata.aggregate(total_price=Sum('price'))['total_price'] or 0
+
+    # Calculate the overall total price from all records
+    overall_total_price = OrderBaza.objects.aggregate(total_price=Sum('price'))['total_price'] or 0
+
+    # Calculate today's total for cash ('Наличные')
+    today_cash_total = \
+        OrderBaza.objects.filter(time_of_year__date=today, payment_method='1').aggregate(total_price=Sum('price'))[
+            'total_price'] or 0
+
+    # Calculate today's total for card ('Пластик')
+    today_card_total = \
+        OrderBaza.objects.filter(time_of_year__date=today, payment_method='2').aggregate(total_price=Sum('price'))[
+            'total_price'] or 0
+
+    # Calculate overall total for cash ('Наличные')
+    overall_cash_total = OrderBaza.objects.filter(payment_method='1').aggregate(total_price=Sum('price'))[
+                             'total_price'] or 0
+
+    # Calculate overall total for card ('Пластик')
+    overall_card_total = OrderBaza.objects.filter(payment_method='2').aggregate(total_price=Sum('price'))[
+                             'total_price'] or 0
+    is_main_page = request.path == '/operator/'
+    context = {
+        "today_total_price": today_total_price,
+        "overall_total_price": overall_total_price,
+        "today_cash_total": today_cash_total,
+        "today_card_total": today_card_total,
+        "overall_cash_total": overall_cash_total,
+        "overall_card_total": overall_card_total,
+        'is_main_page': is_main_page,
+    }
+    return render(request,"operator.html",context)
 @login_required(login_url="login")
 def signup_page(request):
     error_message = None
